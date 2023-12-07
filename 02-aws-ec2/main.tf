@@ -13,6 +13,14 @@ provider "aws" {
   region = "eu-west-1"
 }
 
+# Vars
+variable "instance_name" {
+  description = "Tag name for EC2 instance"
+  type = string
+  default = "ExampleVarAppName"
+}
+
+# AMI Lookup
 data "aws_ami" "ubuntu" {
   most_recent = true
 
@@ -34,6 +42,6 @@ resource "aws_instance" "app_server" {
   instance_type = "t2.micro"
 
   tags = {
-    Name = "ExampleAppServerInstance"
+    Name = var.instance_name
   }
 }
